@@ -1,0 +1,59 @@
+
+select EmployeeID,TitleOfCourtesy,FirstName,LastName from Employees where City = 'London'
+
+select * from Products where CategoryID IN (1,2,4,8) AND  UnitPrice between 50 and 100
+
+select Country,City,CompanyName,ContactName,Phone from Customers order by 1,2,3
+
+select * from Products where (CategoryID=1 and UnitPrice <= 50) or (CategoryID=8 and UnitPrice <= 75) order by 1
+
+select CompanyName from Customers where Fax is null and Country = 'usa'
+
+select CustomerID,CompanyName,ContactName from Customers where CompanyName like '%con%'
+
+select ProductID as รหัสสินค้า ,ProductName as ชื่อสินค้า ,UnitPrice as ราคา ,UnitsInStock as จำนวน ,UnitPrice*UnitsInStock as มูลค่าสินค้า from Products
+
+select * from Products
+
+select ProductID , ProductName , UnitsInStock + UnitsOnOrder as AllStock 
+from Products where (UnitsInStock + UnitsOnOrder)< ReorderLevel
+
+select ProductID,ProductName, UnitPrice,ROUND(UnitPrice*0.07,4) as Vat7 from Products
+
+select TitleOfCourtesy+FirstName+SPACE(2)+lastname as [Empoyee Name] from Employees
+
+select TitleOfCourtesy+FirstName+''+lastname as [Empoyee Name] from Employees
+
+select * ,Round((UnitPrice*Quantity)*1-Discount,2) as NewPrice from [order Details] where OrderID = 10250
+
+select COUNT(*) จำนวนสินค้า, COUNT(ProductID) new from Products where UnitsInStock < 15
+
+select COUNT(*) [จำนวน ผนักงาน] from Employees
+
+select COUNT(*) [จำนวน ลูกค่าใน brazil] from Customers where Country = 'Brazil'
+
+select COUNT(*) [จำนวน สินค้า ] from  [order Details] where OrderID = 10250
+
+select COUNT(*) from Orders where ShipCountry = 'japan'
+
+select MIN(UnitPrice) as ราคาต่ำสุด , MAX(UnitPrice) as ราคาสูงสุด, AVG(UnitPrice) as ค่าเฉลี่ย from Products 
+
+select MIN(UnitPrice) as ราคาต่ำสุด , MAX(UnitPrice) as ราคาสูงสุด, AVG(UnitPrice) as ค่าเฉลี่ย from [order Details] where ProductID = 5
+
+select Country,COUNT(*) จำนวน from Customers group by Country order by (จำนวน) desc
+
+select Country,City,COUNT(*) จำนวน from Customers group by Country,City order by (จำนวน) desc
+
+select ShipCountry,count(*) จำนวนในสั่งซื้อ from Orders group by ShipCountry
+ 
+select Country,count(*) จำนวนประเทศที่น้อยกว่า5 from Customers group by Country having COUNT(*) < 5 order by [จำนวนประเทศที่น้อยกว่า5] desc
+
+select ShipCountry,count(*) จำนวนประเทศที่น้อยกว่า5 from Orders group by ShipCountry having COUNT(*) > 100
+
+select ShipCountry,COUNT(*) จำนวนใบสั่งซื้อในปี1997 from Orders where Year(OrderDate) = 1997 group by ShipCountry having count(*) <5
+
+select * from [Order Details]
+
+select ProductID,sum(Quantity) ราคารวม ,max(UnitPrice) ราคาสูงสุด , MIN(UnitPrice)ราคาต่ำสุด,AVG(UnitPrice) ราคาเฉลี่ย from [Order Details] group by ProductID having sum(Quantity)>1000 order by ProductID
+
+select OrderID,sum(UnitPrice*Quantity*(1-Discount)) as Totalprice from [Order Details] group by OrderID
